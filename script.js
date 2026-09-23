@@ -1,11 +1,51 @@
+// ===============================
+// ELEMENTOS DA PÁGINA
+// ===============================
+
 const button = document.getElementById("newProject");
 const form = document.getElementById("projectForm");
 const saveButton = document.getElementById("saveProject");
+
 const projectList = document.getElementById("projectList");
+const projectCount = document.getElementById("projectCount");
+
+const projectName = document.getElementById("projectName");
+const projectTech = document.getElementById("projectTech");
+const projectDescription = document.getElementById("projectDescription");
+
+const themeToggle = document.getElementById("themeToggle");
+const searchProject = document.getElementById("searchProject");
+
+
+// ===============================
+// PROJETOS
+// ===============================
 
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
 
 let editingIndex = null;
+
+
+// ===============================
+// PROJETO INICIAL
+// ===============================
+
+// Se ainda não existir nenhum projeto,
+// adicionamos o FinTrack automaticamente.
+
+if (projects.length === 0) {
+
+    projects.push({
+        name: "FinTrack API",
+        tech: "Python • FastAPI",
+        description: "API desenvolvida para controle financeiro."
+    });
+
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(projects)
+    );
+}
 
 
 // ===============================
@@ -16,8 +56,29 @@ function displayProjects() {
 
     projectList.innerHTML = "";
 
-    document.getElementById("projectCount").textContent = projects.length;
+    // Atualiza o contador
+    projectCount.textContent = projects.length;
 
+
+    // Caso não tenha projetos
+    if (projects.length === 0) {
+
+        projectList.innerHTML = `
+            <div class="project">
+                <h3>📂 Nenhum projeto cadastrado</h3>
+
+                <p>
+                    Adicione seu primeiro projeto usando
+                    o botão acima.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    // Mostrar todos os projetos
     projects.forEach(function (project, index) {
 
         projectList.innerHTML += `
@@ -31,12 +92,18 @@ function displayProjects() {
 
                 <br><br>
 
-                <button class="editButton" data-index="${index}">
-                    Editar projeto
+                <button
+                    class="editButton"
+                    data-index="${index}"
+                >
+                    ✏️ Editar projeto
                 </button>
 
-                <button class="deleteButton" data-index="${index}">
-                    Excluir projeto
+                <button
+                    class="deleteButton"
+                    data-index="${index}"
+                >
+                    🗑️ Excluir projeto
                 </button>
 
             </div>
@@ -45,28 +112,40 @@ function displayProjects() {
 
 
     // ===============================
-    // BOTÃO EDITAR
+    // EDITAR PROJETO
     // ===============================
 
-    const editButtons = document.querySelectorAll(".editButton");
+    const editButtons =
+        document.querySelectorAll(".editButton");
 
-    editButtons.forEach(function (button) {
 
-        button.addEventListener("click", function () {
+    editButtons.forEach(function (editButton) {
 
-            const index = Number(button.getAttribute("data-index"));
+        editButton.addEventListener("click", function () {
+
+            const index =
+                Number(editButton.getAttribute("data-index"));
 
             const project = projects[index];
 
-            document.getElementById("projectName").value = project.name;
 
-            document.getElementById("projectTech").value = project.tech;
+            projectName.value = project.name;
 
-            document.getElementById("projectDescription").value = project.description;
+            projectTech.value = project.tech;
+
+            projectDescription.value =
+                project.description;
+
 
             editingIndex = index;
 
             form.style.display = "block";
+
+
+            form.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
 
         });
 
@@ -74,23 +153,39 @@ function displayProjects() {
 
 
     // ===============================
-    // BOTÃO EXCLUIR
+    // EXCLUIR PROJETO
     // ===============================
 
-    const deleteButtons = document.querySelectorAll(".deleteButton");
+    const deleteButtons =
+        document.querySelectorAll(".deleteButton");
 
-    deleteButtons.forEach(function (button) {
 
-        button.addEventListener("click", function () {
+    deleteButtons.forEach(function (deleteButton) {
 
-            const index = Number(button.getAttribute("data-index"));
+        deleteButton.addEventListener("click", function () {
+
+            const index =
+                Number(deleteButton.getAttribute("data-index"));
+
+
+            const confirmDelete = confirm(
+                "Tem certeza que deseja excluir este projeto?"
+            );
+
+
+            if (!confirmDelete) {
+                return;
+            }
+
 
             projects.splice(index, 1);
+
 
             localStorage.setItem(
                 "projects",
                 JSON.stringify(projects)
             );
+
 
             displayProjects();
 
@@ -109,7 +204,21 @@ button.addEventListener("click", function () {
 
     editingIndex = null;
 
+
+    projectName.value = "";
+
+    projectTech.value = "";
+
+    projectDescription.value = "";
+
+
     form.style.display = "block";
+
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 
 });
 
@@ -121,32 +230,30 @@ button.addEventListener("click", function () {
 saveButton.addEventListener("click", function () {
 
     const name =
-        document.getElementById("projectName").value.trim();
+        projectName.value.trim();
 
     const tech =
-        document.getElementById("projectTech").value.trim();
+        projectTech.value.trim();
 
     const description =
-        document.getElementById("projectDescription").value.trim();
+        projectDescription.value.trim();
 
 
     // Verificar campos
-
     if (
         name === "" ||
         tech === "" ||
         description === ""
     ) {
 
-        alert("Preencha todos os campos!");
+        alert("Preencha todos os campos! ⚠️");
 
         return;
-
     }
 
 
     // ===============================
-    // EDITAR PROJETO EXISTENTE
+    // EDITAR
     // ===============================
 
     if (editingIndex !== null) {
@@ -161,13 +268,16 @@ saveButton.addEventListener("click", function () {
 
         };
 
-        alert("Projeto atualizado com sucesso! ✏️");
+
+        alert(
+            "Projeto atualizado com sucesso! ✏️"
+        );
 
     }
 
 
     // ===============================
-    // CRIAR NOVO PROJETO
+    // NOVO PROJETO
     // ===============================
 
     else {
@@ -182,14 +292,20 @@ saveButton.addEventListener("click", function () {
 
         };
 
+
         projects.push(newProject);
 
-        alert("Projeto cadastrado com sucesso! 🚀");
+
+        alert(
+            "Projeto cadastrado com sucesso! 🚀"
+        );
 
     }
 
 
-    // Salvar no navegador
+    // ===============================
+    // SALVAR
+    // ===============================
 
     localStorage.setItem(
         "projects",
@@ -197,26 +313,21 @@ saveButton.addEventListener("click", function () {
     );
 
 
-    // Atualizar lista
-
+    // Atualizar tela
     displayProjects();
 
 
     // Limpar formulário
+    projectName.value = "";
 
-    document.getElementById("projectName").value = "";
+    projectTech.value = "";
 
-    document.getElementById("projectTech").value = "";
-
-    document.getElementById("projectDescription").value = "";
+    projectDescription.value = "";
 
 
     // Fechar formulário
-
     form.style.display = "none";
 
-
-    // Voltar para modo novo projeto
 
     editingIndex = null;
 
@@ -224,41 +335,77 @@ saveButton.addEventListener("click", function () {
 
 
 // ===============================
-// CARREGAR PROJETOS AO ABRIR
+// MODO CLARO / ESCURO
 // ===============================
 
-displayProjects();// =========================
-// MODO CLARO / ESCURO
-// =========================
+themeToggle.addEventListener("click", function () {
 
-const themeToggle = document.getElementById("themeToggle");
+    document.body.classList.toggle(
+        "light-mode"
+    );
 
-themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
 
-    if (document.body.classList.contains("light-mode")) {
+    if (
+        document.body.classList.contains(
+            "light-mode"
+        )
+    ) {
+
         themeToggle.textContent = "☀️";
+
     } else {
+
         themeToggle.textContent = "🌙";
+
     }
-});// =========================
-// PESQUISA DE PROJETOS
-// =========================
 
-const searchProject = document.getElementById("searchProject");
-
-searchProject.addEventListener("input", () => {
-    const searchText = searchProject.value.toLowerCase();
-
-    const projects = document.querySelectorAll(".project");
-
-    projects.forEach((project) => {
-        const projectText = project.textContent.toLowerCase();
-
-        if (projectText.includes(searchText)) {
-            project.style.display = "";
-        } else {
-            project.style.display = "none";
-        }
-    });
 });
+
+
+// ===============================
+// PESQUISA
+// ===============================
+
+searchProject.addEventListener(
+    "input",
+    function () {
+
+        const searchText =
+            searchProject.value
+                .toLowerCase()
+                .trim();
+
+
+        const projectCards =
+            document.querySelectorAll(".project");
+
+
+        projectCards.forEach(function (project) {
+
+            const projectText =
+                project.textContent.toLowerCase();
+
+
+            if (
+                projectText.includes(searchText)
+            ) {
+
+                project.style.display = "";
+
+            } else {
+
+                project.style.display = "none";
+
+            }
+
+        });
+
+    }
+);
+
+
+// ===============================
+// CARREGAR PROJETOS
+// ===============================
+
+displayProjects();
