@@ -295,4 +295,42 @@ body.light-mode #searchProject {
     background: white;
     color: #222;
     border-color: #ccc;
+}/* =========================
+   CÍRCULO DE PROGRESSO
+========================= */
+
+.progress-circle {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: conic-gradient(
+        #6c63ff 68%,
+        #e5e7eb 68%
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-circle::before {
+    content: "";
+    width: 58px;
+    height: 58px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.progress-circle span {
+    position: relative;
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    z-index: 1;
+}
+
+body.light-mode .progress-circle::before {
+    background: white;
 }
