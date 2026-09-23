@@ -270,4 +270,29 @@ body.light-mode .study,
 body.light-mode .project {
     background: white;
     color: #222;
+}/* =========================
+   PESQUISA DE PROJETOS
+========================= */
+
+#searchProject {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 16px;
+    margin: 15px 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#searchProject:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+body.light-mode #searchProject {
+    background: white;
+    color: #222;
+    border-color: #ccc;
 }

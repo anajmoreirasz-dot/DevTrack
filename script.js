@@ -241,4 +241,24 @@ themeToggle.addEventListener("click", () => {
     } else {
         themeToggle.textContent = "🌙";
     }
+});// =========================
+// PESQUISA DE PROJETOS
+// =========================
+
+const searchProject = document.getElementById("searchProject");
+
+searchProject.addEventListener("input", () => {
+    const searchText = searchProject.value.toLowerCase();
+
+    const projects = document.querySelectorAll(".project");
+
+    projects.forEach((project) => {
+        const projectText = project.textContent.toLowerCase();
+
+        if (projectText.includes(searchText)) {
+            project.style.display = "";
+        } else {
+            project.style.display = "none";
+        }
+    });
 });
