@@ -225,4 +225,49 @@ progress {
 .stat-card strong {
     font-size: 32px;
     color: #38bdf8;
+}/* =========================
+   BOTÃO DE TEMA
+========================= */
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#themeToggle {
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 22px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#themeToggle:hover {
+    transform: scale(1.1);
+}
+
+/* =========================
+   MODO CLARO
+========================= */
+
+body.light-mode {
+    background: #f4f6f8;
+    color: #222;
+}
+
+body.light-mode header {
+    background: white;
+    color: #222;
+}
+
+body.light-mode .stat-card,
+body.light-mode .study,
+body.light-mode .project {
+    background: white;
+    color: #222;
 }
