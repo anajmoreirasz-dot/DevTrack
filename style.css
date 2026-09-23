@@ -333,4 +333,60 @@ body.light-mode #searchProject {
 
 body.light-mode .progress-circle::before {
     background: white;
+}/* Ajuste do modo claro */
+
+body.light-mode .welcome {
+    color: white;
+}
+
+body.light-mode .welcome h2 {
+    color: white;
+}
+
+body.light-mode .welcome p {
+    color: white;
+}/* =========================
+   RESPONSIVIDADE - CELULAR
+========================= */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 25px 20px;
+    }
+
+    header h1 {
+        font-size: 40px;
+    }
+
+    header p {
+        font-size: 18px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .welcome {
+        padding: 30px 20px;
+    }
+
+    .dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+}
+
+    .stat-card {
+        width: 100%;
+    }
+
+    .project {
+        width: 100%;
+    }
+
+    #searchProject {
+        max-width: 100%;
+    }
 }
