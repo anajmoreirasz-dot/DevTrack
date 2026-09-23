@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevTrack</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>DevTrack</h1>
+        <p>Seu progresso. Seus projetos. Sua evolução.</p>
+    </header>
+
+    <main>
+
+        <section class="welcome">
+            <h2>Olá, Ana! 👋</h2>
+            <p>Continue evoluindo nos seus estudos de tecnologia.</p>
+
+            <button id="newProject">
+                + Novo projeto
+            </button>
+            <div id="projectForm" class="project-form">
+    <input type="text" id="projectName" placeholder="Nome do projeto">
+
+    <input type="text" id="projectTech" placeholder="Tecnologias utilizadas">
+
+    <textarea id="projectDescription" placeholder="Descrição do projeto"></textarea>
+
+    <button id="saveProject">
+        Salvar projeto
+    </button>
+</div>
+        </section>
+        <section class="dashboard">
+
+    <div class="stat-card">
+        <h3>📂 Projetos</h3>
+        <strong id="projectCount">0</strong>
+    </div>
+
+    <div class="stat-card">
+        <h3>📚 Estudos</h3>
+        <strong>3</strong>
+    </div>
+
+    <div class="stat-card">
+        <h3>🚀 Progresso</h3>
+        <strong>68%</strong>
+    </div>
+
+</section>
+
+       <section>
+           <h2>📂 Meus projetos</h2>
+
+           <div id="projectList"></div>
+
+           
+       </section>
+        <section>
+            <h2>📚 Meus estudos</h2>
+
+            <div class="study">
+                <p>JavaScript</p>
+                <progress value="70" max="100"></progress>
+                <span>70%</span>
+            </div>
+
+            <div class="study">
+                <p>Python</p>
+                <progress value="50" max="100"></progress>
+                <span>50%</span>
+            </div>
+
+            <div class="study">
+                <p>Git & GitHub</p>
+                <progress value="80" max="100"></progress>
+                <span>80%</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
