@@ -24,6 +24,21 @@ const searchProject = document.getElementById("searchProject");
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
 
 let editingIndex = null;
+// Atualiza o link do FinTrack existente
+projects.forEach(function (project) {
+    if (
+        project.name === "FinTrack API" &&
+        !project.link
+    ) {
+        project.link =
+            "https://github.com/anajmoreirasz-dot/-fintrack-api";
+    }
+});
+
+localStorage.setItem(
+    "projects",
+    JSON.stringify(projects)
+);
 
 
 // ===============================
@@ -35,7 +50,8 @@ if (projects.length === 0) {
     projects.push({
         name: "FinTrack API",
         tech: "Python • FastAPI",
-        description: "API desenvolvida para controle financeiro."
+        description: "API desenvolvida para controle financeiro.",
+        link: "https://github.com/anajmoreirasz-dot/-fintrack-api"
     });
 
     localStorage.setItem(
@@ -77,31 +93,45 @@ function displayProjects() {
 
     projects.forEach(function (project, index) {
 
-        projectList.innerHTML += `
-            <div class="project-card">
+       projectList.innerHTML += `
+    <div class="project-card">
 
-                <h3>💻 ${project.name}</h3>
+        <h3>💻 ${project.name}</h3>
 
-                <p>${project.tech}</p>
+        <p>${project.tech}</p>
 
-                <p>${project.description}</p>
+        <p>${project.description}</p>
 
-                <button
-                    class="editButton"
-                    data-index="${index}"
-                >
-                    ✏️ Editar
-                </button>
+        <button
+            class="editButton"
+            data-index="${index}"
+        >
+            ✏️ Editar
+        </button>
 
-                <button
-                    class="deleteButton"
-                    data-index="${index}"
-                >
-                    🗑️ Excluir
-                </button>
+        <button
+            class="deleteButton"
+            data-index="${index}"
+        >
+            🗑️ Excluir
+        </button>
 
-            </div>
-        `;
+        ${
+            project.link
+                ? `
+                    <a
+                        href="${project.link}"
+                        target="_blank"
+                        class="githubButton"
+                    >
+                        🔗 Ver no GitHub
+                    </a>
+                `
+                : ""
+        }
+
+    </div>
+`;
     });
 
 

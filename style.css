@@ -1052,4 +1052,23 @@ body.dark-mode .project-card button:last-of-type {
     .contact-section {
         padding: 20px;
     }
+}/* ===============================
+   BOTÃO GITHUB DO PROJETO
+================================ */
+
+.githubButton {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, #7c3aed, #2563eb);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.githubButton:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
