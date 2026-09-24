@@ -30,9 +30,6 @@ let editingIndex = null;
 // PROJETO INICIAL
 // ===============================
 
-// Se ainda não existir nenhum projeto,
-// adicionamos o FinTrack automaticamente.
-
 if (projects.length === 0) {
 
     projects.push({
@@ -56,21 +53,21 @@ function displayProjects() {
 
     projectList.innerHTML = "";
 
-    // Atualiza o contador
     projectCount.textContent = projects.length;
 
 
-    // Caso não tenha projetos
     if (projects.length === 0) {
 
         projectList.innerHTML = `
-            <div class="project">
+            <div class="project-card">
+
                 <h3>📂 Nenhum projeto cadastrado</h3>
 
                 <p>
                     Adicione seu primeiro projeto usando
                     o botão acima.
                 </p>
+
             </div>
         `;
 
@@ -78,32 +75,29 @@ function displayProjects() {
     }
 
 
-    // Mostrar todos os projetos
     projects.forEach(function (project, index) {
 
         projectList.innerHTML += `
-            <div class="project">
+            <div class="project-card">
 
-                <h3>${project.name}</h3>
+                <h3>💻 ${project.name}</h3>
+
+                <p>${project.tech}</p>
 
                 <p>${project.description}</p>
-
-                <span>${project.tech}</span>
-
-                <br><br>
 
                 <button
                     class="editButton"
                     data-index="${index}"
                 >
-                    ✏️ Editar projeto
+                    ✏️ Editar
                 </button>
 
                 <button
                     class="deleteButton"
                     data-index="${index}"
                 >
-                    🗑️ Excluir projeto
+                    🗑️ Excluir
                 </button>
 
             </div>
@@ -204,16 +198,11 @@ button.addEventListener("click", function () {
 
     editingIndex = null;
 
-
     projectName.value = "";
-
     projectTech.value = "";
-
     projectDescription.value = "";
 
-
     form.style.display = "block";
-
 
     form.scrollIntoView({
         behavior: "smooth",
@@ -239,7 +228,6 @@ saveButton.addEventListener("click", function () {
         projectDescription.value.trim();
 
 
-    // Verificar campos
     if (
         name === "" ||
         tech === "" ||
@@ -282,7 +270,7 @@ saveButton.addEventListener("click", function () {
 
     else {
 
-        const newProject = {
+        projects.push({
 
             name: name,
 
@@ -290,10 +278,7 @@ saveButton.addEventListener("click", function () {
 
             description: description
 
-        };
-
-
-        projects.push(newProject);
+        });
 
 
         alert(
@@ -313,21 +298,14 @@ saveButton.addEventListener("click", function () {
     );
 
 
-    // Atualizar tela
     displayProjects();
 
 
-    // Limpar formulário
     projectName.value = "";
-
     projectTech.value = "";
-
     projectDescription.value = "";
 
-
-    // Fechar formulário
     form.style.display = "none";
-
 
     editingIndex = null;
 
@@ -335,31 +313,61 @@ saveButton.addEventListener("click", function () {
 
 
 // ===============================
-// MODO CLARO / ESCURO
+// 🌙 MODO CLARO / ESCURO
 // ===============================
 
 themeToggle.addEventListener("click", function () {
 
-    document.body.classList.toggle(
-        "light-mode"
-    );
+    document.body.classList.toggle("dark");
+
+    const darkMode =
+        document.body.classList.contains("dark");
 
 
-    if (
-        document.body.classList.contains(
-            "light-mode"
-        )
-    ) {
+    if (darkMode) {
 
         themeToggle.textContent = "☀️";
+
+        localStorage.setItem(
+            "theme",
+            "dark"
+        );
 
     } else {
 
         themeToggle.textContent = "🌙";
 
+        localStorage.setItem(
+            "theme",
+            "light"
+        );
+
     }
 
 });
+
+
+// ===============================
+// CARREGAR TEMA SALVO
+// ===============================
+
+const savedTheme =
+    localStorage.getItem("theme");
+
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeToggle.textContent = "☀️";
+
+} else {
+
+    document.body.classList.remove("dark");
+
+    themeToggle.textContent = "🌙";
+
+}
 
 
 // ===============================
@@ -377,7 +385,7 @@ searchProject.addEventListener(
 
 
         const projectCards =
-            document.querySelectorAll(".project");
+            document.querySelectorAll(".project-card");
 
 
         projectCards.forEach(function (project) {
