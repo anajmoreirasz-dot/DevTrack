@@ -1071,4 +1071,73 @@ body.dark-mode .project-card button:last-of-type {
 .githubButton:hover {
     transform: translateY(-2px);
     opacity: 0.9;
+}/* ===============================
+   RODAPÉ
+================================ */
+
+.site-footer {
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer-content strong {
+    font-size: 20px;
+    color: var(--text);
+}
+
+.footer-content p {
+    margin: 6px 0 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #7c3aed;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 25px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* RESPONSIVIDADE DO RODAPÉ */
+
+@media (max-width: 700px) {
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
 }
